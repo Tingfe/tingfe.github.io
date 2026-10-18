@@ -97,6 +97,30 @@ function repoCard(repo, index) {
   </article>`;
 }
 
+function atlasMarkup(originals, forks) {
+  const anchors = [[25, 33], [55, 22], [76, 61], [35, 77]];
+  const nodes = [
+    ...originals.map((repo, i) => {
+      const angle = -Math.PI / 2 + (i / originals.length) * 2 * Math.PI;
+      const point = originals.length <= 4 ? anchors[i] : [50 + 27 * Math.cos(angle), 50 + 30 * Math.sin(angle)];
+      return { repo, x: point[0], y: point[1], index: i, kind: 'original' };
+    }),
+    ...forks.map((repo, i) => {
+      const angle = -Math.PI / 2 + (i / forks.length) * 2 * Math.PI;
+      return { repo, x: 50 + 43 * Math.cos(angle), y: 50 + 41 * Math.sin(angle), index: originals.length + i, kind: 'fork' };
+    })
+  ];
+  const lines = nodes.map(node => {
+    const target = { x: 50, y: 50 };
+    return `<line x1="${node.x * 10}" y1="${node.y * 6}" x2="${target.x * 10}" y2="${target.y * 6}" class="wire ${node.kind}"/>`;
+  }).join('');
+  const buttons = nodes.map(node => {
+    const description = node.repo.description?.trim() || node.repo.summary || '暂未提供说明，可打开仓库查看文件。';
+    return `<button class="atlas-node ${node.kind}" type="button" style="--x:${node.x}%;--y:${node.y}%;--i:${node.index}" data-name="${escapeHtml(node.repo.name)}" data-description="${escapeHtml(description)}" data-language="${escapeHtml(node.repo.language || '未标注语言')}" data-kind="${node.kind}" data-url="${escapeHtml(node.repo.html_url)}" aria-label="查看 ${escapeHtml(node.repo.name)}" aria-pressed="false"><span class="node-index">${String(node.index + 1).padStart(2, '0')}</span><span class="node-title">${escapeHtml(node.repo.name)}</span></button>`;
+  }).join('\n');
+  return `<svg class="atlas-wires" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${buttons}`;
+}
+
 const repos = await getPublicRepos();
 if (repos.length === 0) throw new Error('No public repositories returned; keeping previous deployment');
 await addReadmeDescriptions(repos);
@@ -111,6 +135,7 @@ const replacements = {
   '{{FORK_COUNT}}': String(forks.length),
   '{{LANGUAGE_COUNT}}': String(languages.size),
   '{{UPDATED_AT}}': escapeHtml(now),
+  '{{ATLAS_NODES}}': atlasMarkup(originals, forks),
   '{{PROJECT_CARDS}}': originals.map(repoCard).join('\n') + forks.map((repo, i) => repoCard(repo, originals.length + i)).join('\n')
 };
 for (const [key, value] of Object.entries(replacements)) html = html.replaceAll(key, value);

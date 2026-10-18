@@ -2,6 +2,8 @@
 
 GitHub Pages 个人项目落地页。页面只读取 `Tingfe` 账号的**公开仓库**，明确区分原创仓库与 Fork。仓库标题、语言、更新时间及项目网站来自 GitHub API；描述为空时尝试提取公开 README 的首段并标注来源，不自动编造项目介绍。
 
+首页使用可交互的项目星图。点击节点可查看对应仓库的简介与源码链接；下方保留完整列表、分类筛选和搜索。星图连线仅表示这些仓库属于同一 GitHub 账号，不表示项目之间存在依赖或派生关系。
+
 ## 自动更新
 
 `.github/workflows/pages.yml` 在 `main` 推送、手动运行，以及每 6 小时执行一次。`scripts/build.mjs` 读取公开仓库并生成静态 HTML，随后部署到 GitHub Pages。GitHub 定时任务可能排队或延迟；手动运行 `workflow_dispatch` 可立即触发刷新。
