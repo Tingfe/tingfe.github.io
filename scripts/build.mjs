@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -129,7 +130,9 @@ const forks = repos.filter(repo => repo.fork);
 const languages = new Set(repos.map(repo => repo.language).filter(Boolean));
 const now = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Shanghai', hour12: false }).format(new Date());
 let html = await readFile(path.join(root, 'site/index.html'), 'utf8');
+const assetVersion = createHash('sha256').update(await readFile(path.join(root, 'site/styles.css'))).update(await readFile(path.join(root, 'site/main.js'))).update(await readFile(path.join(root, 'site/favicon.svg'))).digest('hex').slice(0, 12);
 const replacements = {
+  '{{ASSET_VERSION}}': assetVersion,
   '{{REPO_COUNT}}': String(repos.length),
   '{{ORIGINAL_COUNT}}': String(originals.length),
   '{{FORK_COUNT}}': String(forks.length),
