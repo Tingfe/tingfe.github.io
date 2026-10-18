@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c20">
+  <meta name="description" content="Tingfe 的公开项目目录：原创工具、实验与 Fork 仓库。内容由 GitHub 公开仓库自动更新。">
+  <meta property="og:title" content="Tingfe — 公开项目">
+  <meta property="og:description" content="一些正在运行的想法。浏览原创项目与公开 Fork 仓库。">
+  <meta property="og:type" content="website">
+  <title>Tingfe — 公开项目</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#projects">跳到项目</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Tingfe 首页"><span class="brand-mark">T<span class="brand-dot">.</span></span><span>Tingfe<span class="brand-sub"> / OPEN WORK</span></span></a>
+    <nav aria-label="主导航"><a href="#projects">项目</a><a href="#about">关于</a><a class="header-github" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse"></span> PUBLIC REPOSITORIES / TINGFE</p>
+        <h1 id="hero-title">让想法，<br><em>持续运行。</em></h1>
+        <p class="hero-desc">这里收录我在 GitHub 上公开的代码：从小工具到正在探索的项目。每个仓库都保留通向源码的入口；Fork 与原创分开展示。</p>
+        <div class="hero-actions"><a class="button-primary" href="#projects">探索项目 <span aria-hidden="true">↘</span></a><a class="button-text" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">访问 GitHub <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div><span class="art-cross cross-one">+</span><span class="art-cross cross-two">+</span><div class="art-core"><span>T</span><small>BUILD / EXPLORE</small></div><span class="art-caption">IDEA → REPO → ITERATION</span></div>
+      <div class="hero-foot"><span>SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span><span>成都 · CHENGDU</span></div>
+    </section>
+
+    <section class="signal-strip" aria-label="仓库概况"><div><strong>{{REPO_COUNT}}</strong><span>公开仓库</span></div><div><strong>{{ORIGINAL_COUNT}}</strong><span>原创项目</span></div><div><strong>{{FORK_COUNT}}</strong><span>Fork 仓库</span></div><div><strong>{{LANGUAGE_COUNT}}</strong><span>使用的语言</span></div></section>
+
+    <section class="projects-section" id="projects" aria-labelledby="projects-title">
+      <div class="section-heading"><div><p class="section-kicker">01 / THE WORK</p><h2 id="projects-title">公开项目<span class="title-accent">.</span></h2><p class="section-intro">直接读取 GitHub 的公开仓库信息。仓库描述、语言和更新时间随定时发布刷新。</p></div><div class="update-stamp">DATA SYNCED<br><strong>{{UPDATED_AT}} CST</strong></div></div>
+      <div class="toolbar"><div class="filters" role="group" aria-label="筛选项目"><button type="button" class="filter active" data-filter="all" aria-pressed="true">全部 <span>{{REPO_COUNT}}</span></button><button type="button" class="filter" data-filter="original" aria-pressed="false">原创 <span>{{ORIGINAL_COUNT}}</span></button><button type="button" class="filter" data-filter="fork" aria-pressed="false">Fork <span>{{FORK_COUNT}}</span></button></div><label class="search"><span aria-hidden="true">⌕</span><input id="project-search" type="search" placeholder="搜索项目或语言" autocomplete="off" aria-label="搜索项目或语言"><kbd>/</kbd></label></div>
+      <div class="project-grid" id="project-grid">{{PROJECT_CARDS}}</div>
+      <p class="empty-state" id="empty-state" hidden>没有找到匹配的项目。试试其他关键词。</p>
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+    </section>
+
+    <section class="about-section" id="about" aria-labelledby="about-title"><div class="about-label">02 / ABOUT THIS PAGE</div><div class="about-content"><h2 id="about-title">代码是一种<br><em>持续更新的记录。</em></h2><p>我是 Tonny Tang（Tingfe），关注技术工具、数据与实际问题的解决。这一页只展示公开仓库元数据；项目的具体功能、状态与使用方式，请以各仓库的 README 和代码为准。</p><a href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">在 GitHub 查看完整资料 <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer><span>© <span id="year">2026</span> TINGFE</span><span>BUILT FROM PUBLIC GITHUB DATA</span><a href="#top">回到顶部 ↑</a></footer>
+</body>
+</html>
