@@ -3,62 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b16">
-  <meta name="description" content="Tingfe 的公开项目星图。探索原创项目、Fork 仓库和持续更新的代码实验。">
-  <meta property="og:title" content="Tingfe — Project Atlas">
-  <meta property="og:description" content="公开代码的交互星图，由 GitHub 仓库自动更新。">
+  <meta name="theme-color" content="#f3f1ea">
+  <meta name="description" content="Tingfe 的公开项目档案。原创项目、衍生仓库和持续更新的代码记录。">
+  <meta property="og:title" content="Tingfe · 项目档案">
+  <meta property="og:description" content="公开项目与代码记录，随 GitHub 仓库自动更新。">
   <meta property="og:type" content="website">
-  <title>Tingfe — Project Atlas</title>
+  <title>Tingfe · 项目档案</title>
   <link rel="icon" href="./favicon.svg?v={{ASSET_VERSION}}" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css?v={{ASSET_VERSION}}">
   <script src="./main.js?v={{ASSET_VERSION}}" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#projects">跳到项目列表</a>
-  <div class="ambient ambient-one" aria-hidden="true"></div>
-  <div class="ambient ambient-two" aria-hidden="true"></div>
-
   <header class="site-header" id="top">
-    <a class="brand" href="#top" aria-label="Tingfe 首页"><span class="brand-icon">T<span>✳</span></span><span class="brand-word">TINGFE<small>PROJECT ATLAS</small></span></a>
-    <nav aria-label="主导航"><a href="#atlas">星图</a><a href="#projects">仓库</a><a href="#about">关于</a></nav>
-    <a class="header-link" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">GITHUB <span aria-hidden="true">↗</span></a>
+    <a class="brand" href="#top" aria-label="Tingfe 首页"><span class="brand-mark" aria-hidden="true">t<span>.</span></span><span class="brand-word">Tingfe<small>项目档案</small></span></a>
+    <nav aria-label="主导航"><a href="#atlas">项目索引</a><a href="#projects">全部仓库</a><a href="#about">关于</a></nav>
+    <a class="header-link" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
   </header>
 
   <main>
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-overline"><span class="live-pip"></span> LIVE INDEX <span class="overline-divider">/</span> TINGFE'S OPEN WORK <span class="overline-coord">CHENGDU / CN</span></div>
-      <div class="hero-main">
-        <div class="hero-copy">
-          <p class="tiny-label">CODE / TOOLS / EXPERIMENTS</p>
-          <h1 id="hero-title">打开<br><span class="gradient-text">项目宇宙<span class="hero-period">.</span></span></h1>
-          <p class="hero-description">{{REPO_COUNT}} 个公开仓库，{{ORIGINAL_COUNT}} 个原创坐标。点亮节点，看看想法如何变成可运行的代码。</p>
-          <div class="hero-cta"><a class="primary-cta" href="#atlas">进入星图 <span aria-hidden="true">↘</span></a><a class="secondary-cta" href="#projects">浏览全部仓库 <span aria-hidden="true">↓</span></a></div>
-          <div class="hero-key"><span><i class="key-dot key-original"></i> ORIGINAL</span><span><i class="key-dot key-fork"></i> FORK</span><span>CLICK A NODE TO EXPLORE</span></div>
-        </div>
-        <div class="hero-signal" aria-hidden="true"><div class="signal-ring ring-outer"></div><div class="signal-ring ring-mid"></div><div class="signal-ring ring-inner"></div><div class="signal-center">T<span>✳</span></div><span class="signal-coordinate signal-a">01 / BUILD</span><span class="signal-coordinate signal-b">02 / EXPLORE</span><span class="signal-coordinate signal-c">03 / ITERATE</span></div>
+      <div class="hero-copy">
+        <div class="hero-kicker"><span class="status-dot" aria-hidden="true"></span> 公开项目档案 <span class="kicker-rule" aria-hidden="true"></span> 自动同步</div>
+        <h1 id="hero-title">我做过的，<br><em>都放在这里。</em></h1>
+        <p class="hero-description">一些独立完成的工具，一些从社区出发的尝试。点开看看它们现在是什么样子。</p>
+        <div class="hero-actions"><a class="primary-cta" href="#atlas">从项目开始 <span aria-hidden="true">↗</span></a><a class="text-link" href="#projects">浏览全部仓库 <span aria-hidden="true">↓</span></a></div>
+        <p class="hero-count"><strong>{{ORIGINAL_COUNT}}</strong> 个原创项目 <span aria-hidden="true">/</span> <strong>{{FORK_COUNT}}</strong> 个 Fork <span aria-hidden="true">/</span> <strong>{{REPO_COUNT}}</strong> 个公开仓库</p>
       </div>
-      <div class="hero-bottom"><span>SCROLL TO DISCOVER <span aria-hidden="true">↓</span></span><span>LAST SYNC / {{UPDATED_AT}} CST</span></div>
+      <aside class="hero-feature" aria-label="最近更新的原创项目">
+        <div class="feature-top"><span>最近更新的原创项目</span><span>01 / {{ORIGINAL_COUNT}}</span></div>
+        {{FEATURED_CARD}}
+        <div class="feature-bottom"><span>来源：公开 GitHub 仓库</span><span>更新于 {{UPDATED_AT}} CST</span></div>
+      </aside>
     </section>
-
-    <section class="metrics" aria-label="仓库概览"><div><span class="metric-number">{{REPO_COUNT}}</span><span class="metric-caption">PUBLIC REPOS<br>公开仓库</span></div><div><span class="metric-number">{{ORIGINAL_COUNT}}</span><span class="metric-caption">ORIGINALS<br>原创项目</span></div><div><span class="metric-number">{{FORK_COUNT}}</span><span class="metric-caption">FORKS<br>衍生仓库</span></div><div><span class="metric-number">{{LANGUAGE_COUNT}}</span><span class="metric-caption">LANGUAGES<br>使用语言</span></div></section>
 
     <section class="atlas-section" id="atlas" aria-labelledby="atlas-title">
-      <div class="section-top"><span class="section-code">01 / INTERACTIVE MAP</span><span class="section-line"></span><span class="section-code">EXPLORE THE CONNECTIONS</span></div>
-      <div class="atlas-heading"><div><h2 id="atlas-title">项目星图<span class="heading-star">✳</span></h2><p>点击节点查看仓库。较大的节点是原创项目，外围节点是 Fork。</p></div><span class="atlas-instruction">HOVER OR CLICK TO INSPECT ↗</span></div>
+      <div class="section-intro"><span class="section-number">01</span><div><p class="eyebrow">项目索引</p><h2 id="atlas-title">先挑一个，<br>看看里面有什么。</h2></div><p class="section-note">原创项目排在前面。点击名称可以查看公开说明，再进入 GitHub 阅读代码。</p></div>
       <div class="atlas-layout">
-        <div class="atlas-stage" id="atlas-stage" aria-label="可交互的公开项目星图"><div class="atlas-grid" aria-hidden="true"></div><div class="atlas-circle circle-one" aria-hidden="true"></div><div class="atlas-circle circle-two" aria-hidden="true"></div><div class="atlas-axis axis-horizontal" aria-hidden="true"></div><div class="atlas-axis axis-vertical" aria-hidden="true"></div><span class="atlas-core" aria-hidden="true">TF<span>✳</span></span>{{ATLAS_NODES}}<span class="stage-coord stage-top">FIG. 01 — REPOSITORY FIELD</span><span class="stage-coord stage-bottom">PUBLIC DATA / LIVE BUILD</span></div>
-        <aside class="node-panel" aria-live="polite"><div class="panel-head"><span><i class="panel-light"></i> SELECTED REPOSITORY</span><span id="panel-index">01 / {{REPO_COUNT}}</span></div><div class="panel-body"><span class="panel-kind" id="panel-kind">ORIGINAL</span><h3 id="panel-name">选择一个节点</h3><p id="panel-description">在星图中点击仓库节点，查看来自 GitHub 的公开说明。</p></div><div class="panel-foot"><span id="panel-language">PUBLIC SOURCE</span><a id="panel-link" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">打开仓库 <span aria-hidden="true">↗</span></a></div></aside>
+        <div class="atlas-stage" id="atlas-stage" aria-label="公开项目索引">{{ATLAS_NODES}}</div>
+        <aside class="node-panel" aria-live="polite">
+          <div class="panel-head"><span>正在查看</span><span id="panel-index">01 / {{REPO_COUNT}}</span></div>
+          <div class="panel-body"><span class="panel-kind" id="panel-kind">原创项目</span><h3 id="panel-name">选择一个项目</h3><p id="panel-description">点击左侧项目，查看 GitHub 提供的公开说明。</p></div>
+          <div class="panel-foot"><span id="panel-language">公开源码</span><a id="panel-link" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">打开仓库 <span aria-hidden="true">↗</span></a></div>
+        </aside>
       </div>
-      <div class="atlas-footer"><span>↑ ORIGINAL NODES</span><span>◦ FORK SATELLITES</span><a href="#projects">切换到列表视图 ↓</a></div>
+      <p class="atlas-footnote">项目说明来自公开仓库的简介或 README；缺少说明时会如实标出。<a href="#projects">查看完整列表 ↗</a></p>
     </section>
 
-    <section class="projects-section" id="projects" aria-labelledby="projects-title"><div class="section-top"><span class="section-code">02 / COMPLETE ARCHIVE</span><span class="section-line"></span><span class="section-code">{{REPO_COUNT}} REPOSITORIES</span></div><div class="list-heading"><div><h2 id="projects-title">全部仓库<span class="heading-star">↗</span></h2><p>按类别浏览，或直接搜索项目名称、描述和语言。</p></div><span class="sync-note">AUTO SYNC<br>{{UPDATED_AT}} CST</span></div>
-      <div class="toolbar"><div class="filters" role="group" aria-label="筛选项目"><button type="button" class="filter active" data-filter="all" aria-pressed="true">全部 <span>{{REPO_COUNT}}</span></button><button type="button" class="filter" data-filter="original" aria-pressed="false">原创 <span>{{ORIGINAL_COUNT}}</span></button><button type="button" class="filter" data-filter="fork" aria-pressed="false">Fork <span>{{FORK_COUNT}}</span></button></div><label class="search"><span aria-hidden="true">⌕</span><input id="project-search" type="search" placeholder="搜索仓库 / 语言" autocomplete="off" aria-label="搜索仓库或语言"><kbd>/</kbd></label></div>
+    <section class="projects-section" id="projects" aria-labelledby="projects-title">
+      <div class="section-intro"><span class="section-number">02</span><div><p class="eyebrow">完整清单</p><h2 id="projects-title">全部公开仓库<span class="count-badge">{{REPO_COUNT}}</span></h2></div><p class="section-note">想找特定项目？按类型筛选，或输入名称、描述、语言。</p></div>
+      <div class="toolbar"><div class="filters" role="group" aria-label="筛选项目"><button type="button" class="filter active" data-filter="all" aria-pressed="true">全部 <span>{{REPO_COUNT}}</span></button><button type="button" class="filter" data-filter="original" aria-pressed="false">原创 <span>{{ORIGINAL_COUNT}}</span></button><button type="button" class="filter" data-filter="fork" aria-pressed="false">Fork <span>{{FORK_COUNT}}</span></button></div><label class="search"><span class="search-label">搜索项目</span><input id="project-search" type="search" placeholder="名称、简介或语言" autocomplete="off" aria-label="搜索仓库或语言"><kbd>/</kbd></label></div>
       <div class="project-grid" id="project-grid">{{PROJECT_CARDS}}</div><p class="empty-state" id="empty-state" hidden>没有找到匹配的仓库。试试其他关键词。</p><p class="result-count" id="result-count" aria-live="polite"></p>
     </section>
 
-    <section class="about-section" id="about" aria-labelledby="about-title"><div class="about-symbol" aria-hidden="true">T✳</div><div class="about-text"><span class="section-code">03 / BEHIND THE SCREEN</span><h2 id="about-title">代码，是持续<br>生长的<span>坐标。</span></h2><p>我是 Tonny Tang（Tingfe），关注技术工具、数据与实际问题的解决。这里展示公开仓库元数据；具体功能和使用边界，请以各仓库的 README 与代码为准。</p><a href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">继续前往 GitHub <span aria-hidden="true">↗</span></a></div></section>
+    <section class="about-section" id="about" aria-labelledby="about-title"><div><span class="section-number">03</span><p class="eyebrow">关于这个页面</p></div><div class="about-text"><h2 id="about-title">项目会变，<br>这份清单也会。</h2><p>我是 Tonny Tang（Tingfe）。这里按公开 GitHub 仓库生成，定期同步新项目与更新；项目的具体功能和使用边界，以各仓库的 README 与代码为准。</p><a class="text-link" href="https://github.com/Tingfe" target="_blank" rel="noopener noreferrer">在 GitHub 继续看 <span aria-hidden="true">↗</span></a></div></section>
   </main>
-  <footer><span>© <span id="year">2026</span> TINGFE</span><span>GENERATED FROM PUBLIC GITHUB DATA</span><a href="#top">BACK TO TOP ↑</a></footer>
+  <footer><span>© <span id="year">2026</span> Tingfe</span><span>最近同步：{{UPDATED_AT}} CST</span><a href="#top">返回顶部 ↑</a></footer>
 </body>
 </html>

@@ -4,7 +4,6 @@ const search = document.querySelector('#project-search');
 const empty = document.querySelector('#empty-state');
 const count = document.querySelector('#result-count');
 const nodes = [...document.querySelectorAll('.atlas-node')];
-const stage = document.querySelector('#atlas-stage');
 const panel = document.querySelector('.node-panel');
 let activeFilter = 'all';
 
@@ -31,12 +30,15 @@ function selectNode(node, scrollOnMobile = false) {
   document.querySelector('#panel-description').textContent = node.dataset.description;
   document.querySelector('#panel-language').textContent = node.dataset.language.toUpperCase();
   const kind = document.querySelector('#panel-kind');
-  kind.textContent = node.dataset.kind === 'original' ? 'ORIGINAL / 原创' : 'FORK / 衍生';
+  kind.textContent = node.dataset.kind === 'original' ? '原创项目' : 'Fork / 衍生仓库';
   kind.classList.toggle('fork', node.dataset.kind === 'fork');
   const link = document.querySelector('#panel-link');
   link.href = node.dataset.url;
   link.setAttribute('aria-label', `打开 ${node.dataset.name} 的 GitHub 仓库`);
-  if (scrollOnMobile && window.matchMedia('(max-width: 760px)').matches) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (scrollOnMobile && window.matchMedia('(max-width: 760px)').matches) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    panel.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'nearest' });
+  }
 }
 
 buttons.forEach(button => button.addEventListener('click', () => {
@@ -66,12 +68,5 @@ nodes.forEach((node, index) => {
   });
 });
 if (nodes.length) selectNode(nodes[0]);
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  stage.addEventListener('pointermove', event => {
-    const rect = stage.getBoundingClientRect();
-    stage.style.setProperty('--px', `${((event.clientX - rect.left) / rect.width) * 100}%`);
-    stage.style.setProperty('--py', `${((event.clientY - rect.top) / rect.height) * 100}%`);
-  });
-}
 document.querySelector('#year').textContent = new Date().getFullYear();
 updateCards();

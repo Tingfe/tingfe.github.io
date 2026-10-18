@@ -99,27 +99,17 @@ function repoCard(repo, index) {
 }
 
 function atlasMarkup(originals, forks) {
-  const anchors = [[25, 33], [55, 22], [76, 61], [35, 77]];
-  const nodes = [
-    ...originals.map((repo, i) => {
-      const angle = -Math.PI / 2 + (i / originals.length) * 2 * Math.PI;
-      const point = originals.length <= 4 ? anchors[i] : [50 + 27 * Math.cos(angle), 50 + 30 * Math.sin(angle)];
-      return { repo, x: point[0], y: point[1], index: i, kind: 'original' };
-    }),
-    ...forks.map((repo, i) => {
-      const angle = -Math.PI / 2 + (i / forks.length) * 2 * Math.PI;
-      return { repo, x: 50 + 43 * Math.cos(angle), y: 50 + 41 * Math.sin(angle), index: originals.length + i, kind: 'fork' };
-    })
-  ];
-  const lines = nodes.map(node => {
-    const target = { x: 50, y: 50 };
-    return `<line x1="${node.x * 10}" y1="${node.y * 6}" x2="${target.x * 10}" y2="${target.y * 6}" class="wire ${node.kind}"/>`;
-  }).join('');
-  const buttons = nodes.map(node => {
-    const description = node.repo.description?.trim() || node.repo.summary || '暂未提供说明，可打开仓库查看文件。';
-    return `<button class="atlas-node ${node.kind}" type="button" style="--x:${node.x}%;--y:${node.y}%;--i:${node.index}" data-name="${escapeHtml(node.repo.name)}" data-description="${escapeHtml(description)}" data-language="${escapeHtml(node.repo.language || '未标注语言')}" data-kind="${node.kind}" data-url="${escapeHtml(node.repo.html_url)}" aria-label="查看 ${escapeHtml(node.repo.name)}" aria-pressed="false"><span class="node-index">${String(node.index + 1).padStart(2, '0')}</span><span class="node-title">${escapeHtml(node.repo.name)}</span></button>`;
+  return [...originals, ...forks].map((repo, index) => {
+    const kind = repo.fork ? 'fork' : 'original';
+    const description = repo.description?.trim() || repo.summary || '暂未提供说明，可打开仓库查看文件。';
+    return `<button class="atlas-node ${kind}" type="button" data-name="${escapeHtml(repo.name)}" data-description="${escapeHtml(description)}" data-language="${escapeHtml(repo.language || '未标注语言')}" data-kind="${kind}" data-url="${escapeHtml(repo.html_url)}" aria-label="查看 ${escapeHtml(repo.name)}" aria-pressed="false"><span class="node-index">${String(index + 1).padStart(2, '0')}</span><span class="node-title">${escapeHtml(repo.name)}</span><span class="node-kind">${kind === 'original' ? '原创' : 'Fork'}</span></button>`;
   }).join('\n');
-  return `<svg class="atlas-wires" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${buttons}`;
+}
+
+function featuredCard(repo) {
+  if (!repo) return '<p class="feature-empty">新的原创项目会出现在这里。</p>';
+  const description = repo.description?.trim() || repo.summary || '暂未提供说明，可打开仓库查看文件。';
+  return `<div class="feature-card"><span class="feature-label">公开仓库 / ${escapeHtml(repo.language || '未标注语言')}</span><h2>${escapeHtml(repo.name)}</h2><p>${escapeHtml(description)}</p><a href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer">查看这个项目 <span aria-hidden="true">↗</span></a></div>`;
 }
 
 const repos = await getPublicRepos();
@@ -139,6 +129,7 @@ const replacements = {
   '{{LANGUAGE_COUNT}}': String(languages.size),
   '{{UPDATED_AT}}': escapeHtml(now),
   '{{ATLAS_NODES}}': atlasMarkup(originals, forks),
+  '{{FEATURED_CARD}}': featuredCard(originals[0]),
   '{{PROJECT_CARDS}}': originals.map(repoCard).join('\n') + forks.map((repo, i) => repoCard(repo, originals.length + i)).join('\n')
 };
 for (const [key, value] of Object.entries(replacements)) html = html.replaceAll(key, value);
