@@ -28,6 +28,9 @@ function selectNode(node, scrollOnMobile = false) {
   document.querySelector('#panel-index').textContent = `${String(nodes.indexOf(node) + 1).padStart(2, '0')} / ${String(nodes.length).padStart(2, '0')}`;
   document.querySelector('#panel-name').textContent = node.dataset.name;
   document.querySelector('#panel-description').textContent = node.dataset.description;
+  const source = document.querySelector('#panel-source');
+  source.textContent = node.dataset.summarySource;
+  source.hidden = !node.dataset.summarySource;
   document.querySelector('#panel-language').textContent = node.dataset.language.toUpperCase();
   const kind = document.querySelector('#panel-kind');
   kind.textContent = node.dataset.kind === 'original' ? '原创项目' : 'Fork / 衍生仓库';
